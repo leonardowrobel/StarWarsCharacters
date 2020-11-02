@@ -17,12 +17,12 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center m-5 row" id="main">
+    <div class="d-flex justify-content-center mt-5 row" id="main">
         <div class="spinner-border m-5 b-5" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <div class="d-none" id="controls">
+    <div class="d-none mb-5" id="controls">
         <button type="button" class="btn btn-primary btn-lg m-1" id="btnprev">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg">
@@ -63,8 +63,8 @@
                         tag += "<div id=\"" + id + "\" class=\"collapse\" data-parent=\"#characteres\"><div class=\"card-body\">";
 
                         tag += "<div class=\"row \">";
-                        tag += "<div class=\"col-6 perfil d-flex justify-content-end\"> <div class=\"spinner-border m-5 b-5\" role=\"status\"><span class=\"sr-only\">Loading...</span></div> </div>";
-                        tag += "<div class=\"col-6\"><p><span class='atribute'>Height:</span> " + item.height + "cm</p>";
+                        tag += "<div class=\"col-md-7 col-8 perfil d-flex justify-content-end\"> <div class=\"spinner-border m-md-5\" role=\"status\"><span class=\"sr-only\">Loading...</span></div> </div>";
+                        tag += "<div class=\"col-md-5 col-4 status\"><p><span class='atribute'>Height:</span> " + item.height + "cm</p>";
                         tag += "<p><span class='atribute'> Mass:</span> " + item.mass + " Kg</p>";
                         tag += "<p><span class='atribute'>Hair:</span> " + item.hair_color + "</p>";
                         tag += "<p><span class='atribute'>Skin color:</span> " + item.skin_color + "</p>";

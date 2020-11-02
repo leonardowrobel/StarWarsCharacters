@@ -14,9 +14,13 @@ span.atribute {
     font-weight: bold;
 }
 
-.profile {
-    
+@media only screen and (max-width: 800px){
+    .status {
+        margin: 0;
+        font-size: small;
+    } 
 }
+
 
 body {
     background-image: url('https://www.globotreks.com/wp-content/uploads/2019/12/Mos-Espa_.jpg');
