@@ -64,8 +64,8 @@
 
                         tag += "<div class=\"row \">";
                         tag += "<div class=\"col-md-7 col-8 perfil d-flex justify-content-end\"> <div class=\"spinner-border m-md-5\" role=\"status\"><span class=\"sr-only\">Loading...</span></div> </div>";
-                        tag += "<div class=\"col-md-5 col-4 status\"><p><span class='atribute'>Height:</span> " + item.height + "cm</p>";
-                        tag += "<p><span class='atribute'> Mass:</span> " + item.mass + " Kg</p>";
+                        tag += "<div class=\"col-md-5 col-4 status\"><p><span class='atribute'>Height:</span> " + item.height + (item.height == 'unknown' ? "" : " cm") + "</p>";
+                        tag += "<p><span class='atribute'> Mass:</span> " + item.mass + (item.mass == 'unknown' ? "" : " Kg") + "</p>";
                         tag += "<p><span class='atribute'>Hair:</span> " + item.hair_color + "</p>";
                         tag += "<p><span class='atribute'>Skin color:</span> " + item.skin_color + "</p>";
                         tag += "<p><span class='atribute'>Eye color:</span> " + item.eye_color + "</p>";
