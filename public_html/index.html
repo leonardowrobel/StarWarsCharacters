@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/other.css" />
+</head>
+
+<body class="container">
+    <div class="d-flex justify-content-center mt-5">
+        <img src="src/star-wars-logo.png" class="logo" />        
+    </div>
+    <div class="d-flex justify-content-center">        
+        <p><span><small>Characters</small></span></p>
+    </div>
+
+    <div class="d-flex justify-content-center m-5" id="main">
+
+        <div class="spinner-border m-5 b-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            getCharacters();
+        });
+
+        function getCharacters() {
+            $.getJSON("https://swapi.dev/api/people/")
+                .done(function (data) {
+                    $("#main").empty();
+                    $("#main").append("<div class=\"accordion col-10\" id=\"characteres\">");
+
+                    //$("#main").append("<ul id=\"characteres\"></ul>");
+                    //$("#characteres").append(data);
+                    $.each(data.results, function (i, item) {
+                        //let id = item.name.replace(" ", "-").toLowerCase();
+                        let id = "ch" + item.url.substr(item.url.length - 3).replace(/\D/g, "");
+                        let tag = "<div class=\"card\" id=\"" + "card" + id + "\"><div class=\"card-header\"";
+                        tag += "<h2 class=\"mb-0\"><button class=\"btn btn-block text-left\" type=\"button\" data-toggle=\"collapse\" data-target=\"#" + id + "\">" + item.name;
+                        tag += "</button></h2></div>";
+
+                        tag += "<div id=\"" + id + "\" class=\"collapse\" data-parent=\"#characteres\"><div class=\"card-body\">";
+
+                        tag += "<div class=\"row \">";
+                        tag += "<div class=\"col-6 perfil d-flex justify-content-end\"> <div class=\"spinner-border m-5 b-5\" role=\"status\"><span class=\"sr-only\">Loading...</span></div> </div>";
+                        tag += "<div class=\"col-6\"><p><span class='atribute'>Height:</span> " + item.height + "cm</p>";
+                        tag += "<p><span class='atribute'> Mass:</span> " + item.mass + " Kg</p>";
+                        tag += "<p><span class='atribute'>Hair:</span> " + item.hair_color + "</p>";
+                        tag += "<p><span class='atribute'>Skin color:</span> " + item.skin_color + "</p>";
+                        tag += "<p><span class='atribute'>Eye color:</span> " + item.eye_color + "</p>";
+                        tag += "<p><span class='atribute'>Birth year:</span> " + item.birth_year + "</p>";
+                        tag += "<p><span class='atribute'>Gender: </span>" + item.gender + "</p></div>";
+
+                        tag += "</div></div></div></div>";
+
+                        $("#characteres").append(tag);
+                    });
+                    $("#main").append("</div>");
+                    $('.collapse').on('show.bs.collapse', function (d) {
+                        let chid = d.currentTarget.id.substr(2);
+                        $("#card" + chid).css("");
+                        let imgurl = "https://starwars-visualguide.com/assets/img/characters/" + chid + ".jpg"
+                        $(this).find('.perfil').empty().append('<img class="profile" height="300" src="' + imgurl + '" />');                                     
+                    })
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.log("Request Failed: " + err);
+                });
+        }
+
+
+
+
+
+
+
+
+    </script>
+    </div>
+</body>
+
+</html>
