@@ -29,7 +29,7 @@
                 <path fill-rule="evenodd"
                     d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
             </svg></button>
-        <button type="button" class="btn btn-secondary btn-lg" id="btnnext">
+        <button type="button" class="btn btn-primary btn-lg m-1" id="btnnext">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
@@ -42,11 +42,11 @@
 
     <script>
         $(document).ready(function () {
-            getCharacters();
+            getCharacters("https://swapi.dev/api/people/");
         });
 
-        function getCharacters() {
-            $.getJSON("https://swapi.dev/api/people/")
+        function getCharacters(link) {
+            $.getJSON(link)
                 .done(function (data) {
                     $("#main").empty();
                     $("#main").append("<div class=\"accordion col-10\" id=\"characteres\">");
@@ -75,10 +75,36 @@
                         tag += "</div></div></div></div>";
 
                         $("#characteres").append(tag);
-                        $("#controls").removeClass("d-none").addClass("d-flex justify-content-center mt-1");
+
 
                     });
+
                     $("#main").append("</div>");
+
+                    $("#controls").removeClass("d-none").addClass("d-flex justify-content-center mt-1");
+
+                    if (data.previous == null) {
+                        $("#btnprev").attr("disabled", true).removeClass("btn-primary").addClass("btn-secondary");
+                    } else {
+                        $("#btnprev").attr("disabled", false).addClass("btn-primary").removeClass("btn-secondary");
+                        $("#btnprev").click(function () {
+                            $("#btnprev").prop("onclick", null).off("click");
+                            $("#btnnext").prop("onclick", null).off("click");
+                            getCharacters(data.previous);                            
+                        });
+                    }
+
+                    if (data.next == null) {
+                        $("#btnnext").attr("disabled", true).removeClass("btn-primary").addClass("btn-secondary");
+                    } else {
+                        $("#btnnext").attr("disabled", false).addClass("btn-primary").removeClass("btn-secondary");
+                        $("#btnnext").click(function () {
+                            $("#btnnext").prop("onclick", null).off("click");
+                            $("#btnprev").prop("onclick", null).off("click");
+                            getCharacters(data.next);                            
+                        });
+                    }
+
                     $('.collapse').on('show.bs.collapse', function (d) {
                         let chid = d.currentTarget.id.substr(2);
                         $("#card" + chid).css("");
